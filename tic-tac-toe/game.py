@@ -1,6 +1,6 @@
 
 
-from player import HumanPlayer, RandomComputerPlayer
+from player import HumanPlayer, RandomComputerPlayer, SmartComputerPlayer
 
 class TicTacToe:
     def __init__(self):
@@ -78,12 +78,26 @@ def play(game, x_player, o_player, print_game=True):
                 return letter
             
             letter = 'O' if letter == 'X' else 'X'
-    
+        if print_game:
+            print('It\'s a tie!')
     if print_game:
         print("It's a tie!")
 
 if __name__ == '__main__':
-    x_player = HumanPlayer('X')
-    o_player = RandomComputerPlayer('O')
-    t = TicTacToe()
-    play(t, x_player, o_player, print_game=True)
+    x_win=0
+    o_win=0
+    ties=0
+    for _ in range(10):
+        x_player = RandomComputerPlayer('X')
+        o_player =SmartComputerPlayer('O')
+        t = TicTacToe()
+        result= play(t, x_player, o_player, print_game=False)
+        if result=='X':
+            x_win+=1
+        elif result=='O':
+            o_win+=1
+        else:
+            ties+=1
+print(f'After 10 iteration ,we see {x_win} X wins,{o_win} O wins and ties {ties}')
+
+    
